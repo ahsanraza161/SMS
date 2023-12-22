@@ -18,7 +18,12 @@ import toast, { Toaster } from 'react-hot-toast';
 
 function Copyright(props) {
   return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+    <Typography
+      variant="body2"
+      color="text.secondary"
+      align="center"
+      {...props}
+    >
       {'Copyright © '}
       <Link color="inherit" href="https://mui.com/">
         SMS
@@ -29,8 +34,6 @@ function Copyright(props) {
   );
 }
 
-
-
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
@@ -38,50 +41,47 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const notify = () => toast.error('This is an error!');
-  
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    data.append("userType","student")
-    console.log(data)
-    
+    data.append('userType', 'student');
+    console.log(data);
+
     let config = {
       method: 'post',
       url: 'https://smsbackendkit.vercel.app/signup',
       headers: {
         'Content-Type': 'application/json',
       },
-      data: data
+      data: data,
     };
-
-
 
     axios
       .request(config)
       .then((response) => {
-        console.log("RD",response.data.data.userType);
-        if (response.data.data.userType === 'student'){
-          toast.success('Successfully created!');   
+        console.log('RD', response.data.data.userType);
+        if (response.data.data.userType === 'student') {
+          toast.success('Successfully created!');
           setTimeout(() => {
-            navigate('/student' ,  { state: { Userdata:response.data.data } });
-          console.log( `I'm a student`);
-          }, 1000) 
+            navigate('/student', { state: { Userdata: response.data.data } });
+            console.log(`I'm a student`);
+          }, 1000);
+        } else {
+          console.log('Cannot navigate');
+          notify();
         }
-        else {
-          console.log('Cannot navigate')
-          notify()
-        }
-      }).catch((error) => {
-        console.log('Error is:' + error)
       })
-    
+      .catch((error) => {
+        console.log('Error is:' + error);
+      });
+
     console.log({
       firstName: data.get('firstName'),
       lastName: data.get('lastName'),
       email: data.get('email'),
       password: data.get('password'),
-      userType: data.get('userType')
+      userType: data.get('userType'),
     });
   };
 
@@ -103,7 +103,12 @@ export default function SignUp() {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box
+            component="form"
+            noValidate
+            onSubmit={handleSubmit}
+            sx={{ mt: 3 }}
+          >
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -126,17 +131,16 @@ export default function SignUp() {
                   autoComplete="family-name"
                 />
               </Grid>
-              <Grid item xs={12} >
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
                   id="fatherName"
                   label="fatherName"
                   name="fatherName"
-                  
                 />
               </Grid>
-              <Grid item xs={12} >
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -146,7 +150,7 @@ export default function SignUp() {
                   autoComplete="family-name"
                 />
               </Grid>
-              <Grid item xs={12} >
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -156,7 +160,7 @@ export default function SignUp() {
                   autoComplete="family-name"
                 />
               </Grid>
-              <Grid item xs={12} >
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -189,7 +193,9 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  control={
+                    <Checkbox value="allowExtraEmails" color="primary" />
+                  }
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>
@@ -204,7 +210,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -213,7 +219,7 @@ export default function SignUp() {
         </Box>
         <Copyright sx={{ mt: 5 }} />
       </Container>
-      <Toaster/>
+      <Toaster />
     </ThemeProvider>
   );
 }
