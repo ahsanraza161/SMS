@@ -1,6 +1,6 @@
 import React from 'react';
 import SignIn from './components/Signinform/signin';
-import Admin from './panels/admin/AdminDashboard';
+import Admin from './panels/admin/adminDashboard';
 import { Routes, Route } from 'react-router-dom';
 import SignUp from './components/Signupform/signup';
 import Dashboard from './panels/student/dashboard';
