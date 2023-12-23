@@ -48,7 +48,7 @@ export default function SignUp() {
 
     let config = {
       method: 'post',
-      url: 'http://localhost:3050/signup',
+      url: 'https://1989-39-50-198-81.ngrok-free.app/signup',
       headers: {
         'Content-Type': 'application/json',
       },

@@ -49,7 +49,7 @@ export default function SignIn() {
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'http://localhost:3050/login',
+      url: 'https://1989-39-50-198-81.ngrok-free.app/login',
       headers: {
         'Content-Type': 'application/json',
       },
