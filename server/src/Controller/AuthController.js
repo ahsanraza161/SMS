@@ -4,25 +4,31 @@ import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
 dotenv.config();
 
-
-
 const createUser = async (req, res) => {
   try {
-    const { email, password, phone, firstName,lastName ,userType,fatherName,grade,section,age} = req.body;
+    const {
+      email,
+      password,
+      phone,
+      firstName,
+      lastName,
+      userType,
+      fatherName,
+      grade,
+      section,
+      age,
+    } = req.body;
     const existingUser = await authModel.findOne({ email });
 
     if (existingUser) {
       return res.send('User Already Exists');
     }
 
-
     const salt = await bcrypt.genSalt(10);
-    const secPass = await bcrypt.hash(req.body.password, salt)
-
-
+    const secPass = await bcrypt.hash(req.body.password, salt);
 
     const createNewUser = await authModel.create({
-      firstName, 
+      firstName,
       lastName,
       fatherName,
       email,
@@ -31,14 +37,14 @@ const createUser = async (req, res) => {
       userType,
       grade,
       section,
-      age
+      age,
     });
 
     const payload = {
-      user:{
-        id:createNewUser.id
-      }
-    }
+      user: {
+        id: createNewUser.id,
+      },
+    };
     // let authToken = jwt.sign(payload, process.env.JWTSCERET ,{
     //   expiresIn:3600000
     // },(err,token) => {
@@ -47,14 +53,11 @@ const createUser = async (req, res) => {
 
     // });
 
-res.json({
-  status:true,
-  message:"User Registered Successfully",
-  data:createNewUser
-})
-
-
-    
+    res.json({
+      status: true,
+      message: 'User Registered Successfully',
+      data: createNewUser,
+    });
 
     // const CreatedUser = await authModel
     //   .findById(createNewUser._id)
@@ -68,7 +71,7 @@ res.json({
 };
 
 const login = async (req, res) => {
-  const JWTSCERET = "SchoolManagementSystem"
+  const JWTSCERET = 'SchoolManagementSystem';
   try {
     const { email, password } = req.body;
     const existingUser = await authModel.findOne({ email });
@@ -83,42 +86,33 @@ const login = async (req, res) => {
     }
 
     // Password Compare
-    const Ismatch = await bcrypt.compare( password, existingUser.password)
+    const Ismatch = await bcrypt.compare(password, existingUser.password);
     if (!Ismatch) {
       return res.json({
-        status:false,
-        msg:'Wrong Password'
-      })
-    } 
+        status: false,
+        msg: 'Wrong Password',
+      });
+    }
 
     const payload = {
-      user:{
-        id: existingUser.id
-      }
+      user: {
+        id: existingUser.id,
+      },
     };
 
-    let authToken = await jwt.sign(payload, JWTSCERET ,{
-      expiresIn:3600000
-    })
+    let authToken = await jwt.sign(payload, JWTSCERET, {
+      expiresIn: 3600000,
+    });
     res.json({
-      status:true,
-      data:existingUser,
-      authToken
-    })
-    
-
-    
-
+      status: true,
+      data: existingUser,
+      authToken,
+    });
   } catch (err) {
     console.log(err);
     return res.send(err.message);
   }
 };
-
-
-
-
-
 
 //  async (req, res) => {
 //   try {
@@ -146,30 +140,27 @@ const login = async (req, res) => {
 //   }
 // };
 
-const createCourse = async(req,res) => {
+const createCourse = async (req, res) => {
   try {
     const { courseId, Instructor, courseName, duration } = req.body;
 
-    const addCourse = await  {
+    const addCourse = await {
       courseId,
       courseName,
       Instructor,
-      duration
-    }
-
-  }
-  catch (err) {
+      duration,
+    };
+  } catch (err) {
     console.log(err);
     return res.send(err.message);
   }
-}
-
+};
 
 const AuthController = {
   createUser,
   login,
-  // getProfile,
-  createCourse
+  // getProfile, // if we un commit it, it will crash app
+  createCourse,
 };
 
 export default AuthController;

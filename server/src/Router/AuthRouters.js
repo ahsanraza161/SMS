@@ -8,7 +8,7 @@ import authModel from '../DB/Model/AuthModel.js';
 export let AuthRouters = Router();
 
 AuthRouters.route("/signup").post(AuthController.createUser)
-AuthRouters.route("/").post(AuthController.login)
+AuthRouters.route("/login").post(AuthController.login)
 AuthRouters.route("/getprofile").post( auth , async (req, res) => {
   try {
     const userid = req.user.id;
