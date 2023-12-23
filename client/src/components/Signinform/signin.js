@@ -16,7 +16,6 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 
-
 function Copyright(props) {
   return (
     <Typography
@@ -42,7 +41,6 @@ const defaultTheme = createTheme();
 export default function SignIn() {
   const navigate = useNavigate();
 
-  const notify = () => toast.error('This is an error!');
   // const alert = useAlert();
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -51,40 +49,47 @@ export default function SignIn() {
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'https://af20-39-50-198-81.ngrok-free.app/login',
+      url: 'http://localhost:3050/login',
       headers: {
         'Content-Type': 'application/json',
       },
       data: data,
     };
-//
+    //
     axios
       .request(config)
       .then((response) => {
-        //console.log(response.data);
-        //console.log(response.data.data.userType);
-        if (response.data.status === true && response.data.data.userType === 'student') {
-          // console.log(response.data); 
+        // console.log(response.data.data);
+        // console.log(response.data.data.userType);
+        if (
+          response.data.status === true &&
+          response.data.data.userType === 'student'
+        ) {
+          // console.log(response.data);
           toast.success('Successfully created!');
-          setTimeout (() => {navigate('/student');
-          console.log(`I'm a Student`);}, 1000)
-          // window.localStorage.setItem('isLoggedIn' , true);
-        }
-       else if (response.data.status === true && response.data.data.userType === "admin") {
+          setTimeout(() => {
+            navigate('/student', { state: { Userdata: response.data.data } });
+            console.log(`I'm a Student`);
+          }, 1000);
+        } else if (
+          response.data.status === true &&
+          response.data.data.userType === 'admin'
+        ) {
           navigate('/admin');
-          console.log("I am admin")
-        } 
-        else if (response.data.status === true && response.data.data.userType === "teacher") 
-        {
-         navigate('/admin');
-       console.log("I am teacher")
-        }  
-        else if (response.data.msg === 'Wrong Password') {
-          console.log("wrong password")
-          notify();
+          console.log('I am admin');
+        } else if (
+          response.data.status === true &&
+          response.data.data.userType === 'teacher'
+        ) {
+          navigate('/admin');
+          console.log('I am teacher');
+        } else if (response.data.msg === 'Wrong Password') {
+          console.log('wrong password');
+          toast.error('Wrong Password');
         }
       })
       .catch((error) => {
+        toast.error('This is an error!');
         console.log('Error is: ', error);
       });
   };
@@ -162,6 +167,6 @@ export default function SignIn() {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
       <Toaster />
-    </ThemeProvider>   
+    </ThemeProvider>
   );
 }

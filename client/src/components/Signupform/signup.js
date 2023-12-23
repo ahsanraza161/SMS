@@ -40,8 +40,6 @@ const defaultTheme = createTheme();
 export default function SignUp() {
   const navigate = useNavigate();
 
-  const notify = () => toast.error('This is an error!');
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -50,7 +48,7 @@ export default function SignUp() {
 
     let config = {
       method: 'post',
-      url: 'https://af20-39-50-198-81.ngrok-free.app/signup',
+      url: 'http://localhost:3050/signup',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -60,19 +58,17 @@ export default function SignUp() {
     axios
       .request(config)
       .then((response) => {
-        console.log('RD', response.data.data.userType);
+        // console.log('RD', response.data.data.userType);
         if (response.data.data.userType === 'student') {
           toast.success('Successfully created!');
           setTimeout(() => {
             navigate('/student', { state: { Userdata: response.data.data } });
             console.log(`I'm a student`);
-          }, 1000);
-        } else {
-          console.log('Cannot navigate');
-          notify();
+          }, 600);
         }
       })
       .catch((error) => {
+        toast.error('Error Occured');
         console.log('Error is:' + error);
       });
 
@@ -210,7 +206,7 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="/" variant="body2">
+                <Link href="signin" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>

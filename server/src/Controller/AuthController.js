@@ -159,7 +159,7 @@ const createCourse = async (req, res) => {
 const AuthController = {
   createUser,
   login,
-  // getProfile, // if we un commit it, it will crash app
+  // getProfile,
   createCourse,
 };
 
