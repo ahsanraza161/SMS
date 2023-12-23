@@ -15,13 +15,10 @@ const Hamburger = () => {
           </div>
           <ul>
             <li>Dashboard</li>
-            <li>sadsd</li>
-            <li>asdsad</li>
-            <li>asdsad</li>
-            <li>home</li>
-            <li>sadsd</li>
-            <li>asdsad</li>
-            <li>asdsad</li>
+            <li>Students</li>
+            <li>Teachers</li>
+            <li>Results</li>
+            <li>User Managment</li>
           </ul>
         </div>
         <div className="menu" onClick={Sidebarhandler}>
