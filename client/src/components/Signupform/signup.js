@@ -50,7 +50,7 @@ export default function SignUp() {
 
     let config = {
       method: 'post',
-      url: 'https://smsbackendkit.vercel.app/signup',
+      url: 'https://af20-39-50-198-81.ngrok-free.app/signup',
       headers: {
         'Content-Type': 'application/json',
       },
