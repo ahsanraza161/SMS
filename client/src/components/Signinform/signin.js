@@ -51,7 +51,7 @@ export default function SignIn() {
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'https://af20-39-50-198-81.ngrok-free.app/login',
+      url: 'https://smsbackendkit.vercel.app/login',
       headers: {
         'Content-Type': 'application/json',
       },
