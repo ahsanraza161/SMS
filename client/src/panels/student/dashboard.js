@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import './student.css';
 import Studentimage from './Screenshot 2023-12-03 023928.png'
-import Header from '../../components/common/Header/Index';
+import Header from '../../components/common/Header/studentnav';
 import { useNavigate ,useLocation} from 'react-router-dom';
 
 const Dashboard = () => {
